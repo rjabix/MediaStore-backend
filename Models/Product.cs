@@ -12,5 +12,6 @@
         public int? oldprice { get; set; }
         public string image { get; set; }
         public ProductCategory category { get; set; }
+        public string? description { get; set; }
     }
 }

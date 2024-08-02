@@ -89,6 +89,23 @@ namespace MediaStore_backend.Controllers
             return Ok(product);
         }
 
+        [HttpGet("{category}/{id}/description")]
+        public async Task<IActionResult> GetProductDescription(string category, int id)
+        {
+            // ---Capitalize the first letter of the category
+            TextInfo textInfo = CultureInfo.CurrentCulture.TextInfo;
+            category = textInfo.ToTitleCase(category);
+            try
+            {
+                var description = await _productService.GetProduct_Description_ByCategoryAndIdAsync(category, id); // Get the description property
+                return Ok(description);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
         
 
 

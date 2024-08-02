@@ -38,7 +38,28 @@ namespace MediaStore_backend.Services
                 throw new InvalidOperationException("DbSet is not found");
             }
 
-            return await dbSet.FirstOrDefaultAsync(i => i.id == id);
+            var product = await dbSet.FirstOrDefaultAsync(i => i.id == id);
+
+            if (product == null)
+            {
+                return null;
+            }
+
+            product.description = null;
+            return product;
+        }
+
+        public async Task<string> GetProduct_Description_ByCategoryAndIdAsync(string category, int id)
+        {
+            var property = _context.GetType().GetProperty(category) ?? throw new ArgumentException("Entity name is not valid", nameof(category));
+
+            if (property.GetValue(_context) is not IQueryable<Product> dbSet)
+            {
+                throw new InvalidOperationException("DbSet is not found");
+            }
+
+            string? description = await dbSet.Where(i => i.id == id).Select(i => i.description).FirstOrDefaultAsync();
+            return description.ToString();
         }
 
         public async Task<List<object>> GetPopularProductsAsync()
