@@ -11,7 +11,6 @@ namespace MediaStore_backend.Services
     {
         private readonly StoreDbContext _context;
 
-        static int nextId = 2;
         public ProductService(StoreDbContext context)
         {
             _context = context;
