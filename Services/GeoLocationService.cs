@@ -44,14 +44,13 @@ namespace MediaStore_backend.Services
             [JsonPropertyName("items")]
             public Item[] Items { get; set; }
         }
-
-        public async Task<string> GetCityByCoordsAsync(double lat, double lon, string lang)
+        public async Task<string> GetCityByCoordsAsync(double lat, double lon, string? lang)
         {
             string slat = lat.ToString().Replace(',', '.');
             string slon = lon.ToString().Replace(',', '.');
             lang ??= "en-EN";
             var client = new HttpClient();
-            var response = await client.GetAsync($"https://discover.search.hereapi.com/v1/discover?at={slat},{slon}&q={slat},{slon}&lang={lang}&apiKey={GEO_API_KEY}");
+            var response = await client.GetAsync($"https://discover.search.hereapi.com/v1/discover?at={slat},{slon}&q={slat},{slon}&lang={lang}&apiKey={GEO_API_KEY}&limit=1");
             var content = await response.Content.ReadAsStringAsync();
             var responseJson = JsonSerializer.Deserialize<Response>(content);
             if(responseJson == null || responseJson.Items.Length == 0)
