@@ -363,3 +363,7 @@ MigrationBackup/
 FodyWeavers.xsd
 /MediaStore-backend.http
 /.env
+./mediastore_database.db
+mediastore_database.db
+./appsettings.json
+appsettings.json
