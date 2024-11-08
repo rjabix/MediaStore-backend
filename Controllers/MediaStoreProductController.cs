@@ -42,15 +42,13 @@ namespace MediaStore_backend.Controllers
 
             var products = await _productService.GetProductByCategory(category);
 
-            //--Without the last letter 's'
-            category = category.Remove(category.Length - 1);
 
             if (products == null || products.Count == 0)
             {
                 return NotFound();
             }
 
-            var productType = Type.GetType($"MediaStore_backend.Models.Categories.{category}", throwOnError: false);
+            var productType = category.GetCategoryType();
             if (productType == null)
             {
                 return NotFound($"Category '{category}' is not supported.");

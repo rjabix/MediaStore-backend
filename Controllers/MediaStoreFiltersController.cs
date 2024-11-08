@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediaStore_backend.Models;
+using Microsoft.AspNetCore.Mvc;
 using MediaStore_backend.Models.Categories;
 
 namespace MediaStore_backend.Controllers
@@ -17,17 +18,20 @@ namespace MediaStore_backend.Controllers
         [HttpGet("{category}")]
         public ActionResult<List<string>> Get(string category)
         {
-            return category switch
-            {
-                "smartphones" => (ActionResult<List<string>>)GetPropertyNames<Smartphone>(),
-                "laptops" => (ActionResult<List<string>>)GetPropertyNames<Laptop>(),
-                _ => (ActionResult<List<string>>)NotFound(), //default
-            };
+            var type = category.GetCategoryType();
+            if (type == null) return NotFound();
+            return type.GetProperties().Select(p => p.Name).Where(p => Char.IsUpper(p[0])).ToList();
+            // return category switch
+            // {
+            //     "smartphones" => (ActionResult<List<string>>)GetPropertyNames<Smartphone>(),
+            //     "laptops" => (ActionResult<List<string>>)GetPropertyNames<Laptop>(),
+            //     _ => (ActionResult<List<string>>)NotFound(), //default
+            // };
         }
 
-        private List<string> GetPropertyNames<T>()
-        {
-            return typeof(T).GetProperties().Select(p => p.Name).Where(p => Char.IsUpper(p[0])).ToList();
-        }
+        // private List<string> GetPropertyNames<T>()
+        // {
+        //     return typeof(T).GetProperties().Select(p => p.Name).Where(p => Char.IsUpper(p[0])).ToList();
+        // }
     }
 }
