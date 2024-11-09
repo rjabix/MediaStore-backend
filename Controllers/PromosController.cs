@@ -8,12 +8,12 @@ using Microsoft.Extensions.Logging;
 namespace MediaStore_backend.Controllers;
 [ApiController]
 [Route("[controller]")]
-public class MediaStorePromosController : ControllerBase
+public class PromosController : ControllerBase
 {
-    private readonly ILogger<MediaStorePromosController> _logger;
+    private readonly ILogger<PromosController> _logger;
     private readonly BigPromoService _bigPromoService;
 
-    public MediaStorePromosController(ILogger<MediaStorePromosController> logger, BigPromoService bigPromoService)
+    public PromosController(ILogger<PromosController> logger, BigPromoService bigPromoService)
     {
         _logger = logger;
         _bigPromoService = bigPromoService;

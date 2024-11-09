@@ -9,11 +9,11 @@ namespace MediaStore_backend.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class MediaStoreProductController : ControllerBase
+    public class ProductController : ControllerBase
     {
-        private readonly ILogger<MediaStorePromosController> _logger;
+        private readonly ILogger<ProductController> _logger;
         private readonly ProductService _productService;
-        public MediaStoreProductController(ILogger<MediaStorePromosController> logger, ProductService productService)
+        public ProductController(ILogger<ProductController> logger, ProductService productService)
         {
             _logger = logger;
             _productService = productService;

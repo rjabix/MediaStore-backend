@@ -5,13 +5,13 @@ using MediaStore_backend.Services;
 namespace MediaStore_backend.Controllers;
 [ApiController]
 [Route("[controller]")]
-public class MediaStoreNewsController : ControllerBase
+public class NewsController : ControllerBase
 {
 
-    private readonly ILogger<MediaStoreNewsController> _logger;
+    private readonly ILogger<NewsController> _logger;
     private readonly NewsService _newsService;
 
-    public MediaStoreNewsController(ILogger<MediaStoreNewsController> logger, NewsService bigPromoService)
+    public NewsController(ILogger<NewsController> logger, NewsService bigPromoService)
     {
         _logger = logger;
         _newsService = bigPromoService;

@@ -6,12 +6,12 @@ namespace MediaStore_backend.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class MediaStoreGeoLocationController : ControllerBase
+    public class GeoLocationController : ControllerBase
     {
-        private readonly ILogger<MediaStoreGeoLocationController> _logger;
+        private readonly ILogger<GeoLocationController> _logger;
         private readonly GeoLocationService _geoLocationService;
 
-        public MediaStoreGeoLocationController(ILogger<MediaStoreGeoLocationController> logger, GeoLocationService geoLocationService)
+        public GeoLocationController(ILogger<GeoLocationController> logger, GeoLocationService geoLocationService)
         {
             _logger = logger;
             _geoLocationService = geoLocationService;

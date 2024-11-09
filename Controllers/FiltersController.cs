@@ -6,11 +6,11 @@ namespace MediaStore_backend.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class MediaStoreFiltersController : ControllerBase
+    public class FiltersController : ControllerBase
     {
-        private readonly ILogger<MediaStorePromosController> _logger;
+        private readonly ILogger<FiltersController> _logger;
 
-        public MediaStoreFiltersController(ILogger<MediaStorePromosController> logger)
+        public FiltersController(ILogger<FiltersController> logger)
         {
             _logger = logger;
         }
