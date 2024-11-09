@@ -1,0 +1,76 @@
+# Ignore build output directories
+/BigPromoMService/bin/
+/ProductMService/bin/
+/BigPromoMService/obj/
+/ProductMService/obj/
+
+# Ignore user-specific files
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Ignore Rider project files
+.idea/
+*.sln.iml
+
+# Ignore Rider workspace files
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries
+.idea/vcs.xml
+.idea/jsLibraryMappings.xml
+.idea/gradle.xml
+.idea/libraries
+.idea/modules.xml
+.idea/misc.xml
+.idea/modules
+.idea/scopes
+.idea/inspectionProfiles
+.idea/assetWizardSettings.xml
+.idea/markdown-navigator.xml
+
+# Ignore Rider logs
+.idea/logs/
+.idea/usage.statistics.xml
+
+# Ignore temporary files
+*.tmp
+*.temp
+*.log
+
+# Ignore database files
+*.db
+*.sqlite
+
+# Ignore compiled DLLs
+*.dll
+
+# Ignore compiled PDBs
+*.pdb
+
+# Ignore compiled EXEs
+*.exe
+
+# Ignore NuGet packages
+*.nupkg
+*.snupkg
+
+# Ignore publish output
+/publish/
+
+# Ignore coverage reports
+coverage/
+*.coverage
+*.coveragexml
+*.cov
+*.cov.xml
+
+# Ignore test results
+TestResults/
+*.trx
+*.testlog
+
+# Ignore npm packages
+node_modules/
