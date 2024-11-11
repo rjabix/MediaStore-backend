@@ -1,0 +1,48 @@
+version: '3.7'
+
+services:
+  productmservice:
+    build:
+      context: ./ProductMService
+    container_name: ProductMService
+    ports:
+      - "8088:8080"  # Налаштуйте потрібний порт для service1
+
+  newsmservice:
+    build:
+      context: ./NewsMService
+    container_name: NewsMService
+    ports:
+      - "8086:8080"  # Налаштуйте потрібний порт для service2
+
+  bigpromomservice:
+    build:
+      context: ./BigPromoMService
+    container_name: BigPromoMService
+    ports:
+      - "8082:8080"  # Налаштуйте потрібний порт для service3
+
+  geolocationmservice:
+    build:
+      context: ./GeoLocationMService
+    container_name: GeoLocationMService
+    ports:
+      - "8084:8080"  # Налаштуйте потрібний порт для service3
+
+  kong: # kong docker config
+    image: kong:latest
+    volumes:
+      - ./kong.yml:/usr/local/kong/declarative/kong.yml
+    environment:
+      - KONG_DATABASE=off
+      - KONG_DECLARATIVE_CONFIG=/usr/local/kong/declarative/kong.yml
+      - KONG_PROXY_ACCESS_LOG=/dev/stdout
+      - KONG_ADMIN_ACCESS_LOG=/dev/stdout
+      - KONG_PROXY_ERROR_LOG=/dev/stderr
+      - KONG_ADMIN_ERROR_LOG=/dev/stderr
+      - KONG_ADMIN_LISTEN=0.0.0.0:8001, 0.0.0.0:8444 ssl
+    ports:
+      - "8000:8000"
+      - "8443:8443"
+      - "127.0.0.1:8001:8001"
+      - "127.0.0.1:8444:8444"

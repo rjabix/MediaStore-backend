@@ -1,0 +1,30 @@
+_format_version: "2.1"
+
+services:
+  - name: ProductMService
+    url: http://host.docker.internal:8088/product
+    routes:
+      - name: ProductMService
+        paths:
+          - /product
+  
+  - name: NewsMService
+    url: http://host.docker.internal:8086/news
+    routes:
+      - name: NewsMService
+        paths:
+          - /news
+  
+  - name: BigPromoMService
+    url: http://host.docker.internal:8082/promos
+    routes:
+      - name: BigPromoMService
+        paths:
+          - /promos
+  - name: GeoLocationMService
+    url: http://host.docker.internal:8084/geolocation
+    routes:
+      - name: GeoLocationMService
+        paths:
+          - /geolocation
+

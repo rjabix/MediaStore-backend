@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLocationMService", "..\GeoLocationMService\GeoLocationMService.csproj", "{FF47C89F-D503-45F0-B180-EF72219457C2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLocationMService", "GeoLocationMService\GeoLocationMService.csproj", "{FF47C89F-D503-45F0-B180-EF72219457C2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductMService", "ProductMService\ProductMService.csproj", "{578D1591-F7EE-47EE-B98F-C433EB3B1265}"
 EndProject

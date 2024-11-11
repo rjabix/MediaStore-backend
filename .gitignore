@@ -3,6 +3,8 @@
 /ProductMService/bin/
 /BigPromoMService/obj/
 /ProductMService/obj/
+/NewsMService/bin/
+/NewsMService/obj/
 
 # Ignore user-specific files
 *.user
@@ -74,3 +76,6 @@ TestResults/
 
 # Ignore npm packages
 node_modules/
+*Migration*
+*.dylib
+*.so
