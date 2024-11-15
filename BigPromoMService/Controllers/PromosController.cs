@@ -26,7 +26,7 @@ public class PromosController : ControllerBase
         return Ok(items);
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("{id:int}")]
     public async Task<ActionResult<BigPromoItem>> Get(int id)
     {
         var item = await _bigPromoService.GetBigPromoItemByIdAsync(id);
@@ -46,7 +46,7 @@ public class PromosController : ControllerBase
         return CreatedAtAction(nameof(Get), new { id = newItem.id }, newItem);
     }
 
-    [HttpPut("{id}")]
+    [HttpPut("{id:int}")]
     public async Task<IActionResult> Update(int id, BigPromoItem item)
     {
         if (id != item.id)
@@ -65,7 +65,7 @@ public class PromosController : ControllerBase
         return NoContent();
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
         var existingItem = await _bigPromoService.GetBigPromoItemByIdAsync(id);

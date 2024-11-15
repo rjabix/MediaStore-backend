@@ -16,7 +16,7 @@ namespace ProductMService.Services
             _context = context;
         }
 
-        public async Task<List<object>?> GetProductByCategory(string category)
+        public async Task<List<object>?> GetProductByCategory(string category, int page = 0)
         {
             var property = _context.GetType().GetProperty(category) ?? throw new ArgumentException("Entity name is not valid", nameof(category));
 
@@ -25,10 +25,10 @@ namespace ProductMService.Services
                 throw new InvalidOperationException("DbSet is not found");
             }
 
-            return await dbSet.ToListAsync();
+            return await dbSet.Skip(page*20).ToListAsync();
         }
 
-        public async Task<object> GetProductByCategoryAndIdAsync(string category, int id)
+        public async Task<object?> GetProductByCategoryAndIdAsync(string category, int id)
         {
             var property = _context.GetType().GetProperty(category) ?? throw new ArgumentException("Entity name is not valid", nameof(category));
 
@@ -48,7 +48,7 @@ namespace ProductMService.Services
             return product;
         }
 
-        public async Task<string> GetProduct_Description_ByCategoryAndIdAsync(string category, int id)
+        public async Task<string?> GetProduct_Description_ByCategoryAndIdAsync(string category, int id)
         {
             var property = _context.GetType().GetProperty(category) ?? throw new ArgumentException("Entity name is not valid", nameof(category));
 
@@ -58,10 +58,10 @@ namespace ProductMService.Services
             }
 
             string? description = await dbSet.Where(i => i.id == id).Select(i => i.description).FirstOrDefaultAsync();
-            return description.ToString();
+            return description;
         }
 
-        public async Task<List<object>> GetPopularProductsAsync()
+        public async Task<List<object>?> GetPopularProductsAsync()
         {
             List<object> popularProducts = new List<object>();
             foreach (var category in Enum.GetNames(typeof(ProductCategory)))

@@ -34,13 +34,13 @@ namespace ProductMService.Controllers
         }
 
         [HttpGet("{category}")]
-        public async Task<IActionResult> GetProductsByCategory(string category)
+        public async Task<IActionResult> GetProductsByCategory(string category, [FromQuery] int page = 0)
         {
             // ---Capitalize the first letter of the category
             TextInfo textInfo = CultureInfo.CurrentCulture.TextInfo;
             category = textInfo.ToTitleCase(category);
 
-            var products = await _productService.GetProductByCategory(category);
+            var products = await _productService.GetProductByCategory(category, page);
 
 
             if (products == null || products.Count == 0)
@@ -55,22 +55,19 @@ namespace ProductMService.Controllers
             }
 
             // Check if all products are of the expected type
-            if (products.All(p => p.GetType() == productType))
+            if (products.All(p => p.GetType() == productType)) return Ok(products);
+            // Create a non-generic list to hold the casted products
+            var typedProductsList = (System.Collections.IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(productType));
+            foreach (var product in products)
             {
-                // Create a non-generic list to hold the casted products
-                var typedProductsList = (System.Collections.IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(productType));
-                foreach (var product in products)
-                {
-                    typedProductsList.Add(Convert.ChangeType(product, productType));
-                }
-
-                return Ok(typedProductsList);
+                typedProductsList?.Add(Convert.ChangeType(product, productType));
             }
 
-            return Ok(products);
+            return Ok(typedProductsList);
+
         }
 
-        [HttpGet("{category}/{id}")]
+        [HttpGet("{category}/{id:int}")]
         public async Task<IActionResult> GetProduct(string category, int id)
         {
             // ---Capitalize the first letter of the category
@@ -87,7 +84,7 @@ namespace ProductMService.Controllers
             return Ok(product);
         }
 
-        [HttpGet("{category}/{id}/description")]
+        [HttpGet("{category}/{id:int}/description")]
         public async Task<IActionResult> GetProductDescription(string category, int id)
         {
             // ---Capitalize the first letter of the category
@@ -110,7 +107,7 @@ namespace ProductMService.Controllers
             var type = category.GetCategoryType();
             if (type == null) 
                 return NotFound();
-            return type.GetProperties().Select(p => p.Name).Where(p => Char.IsUpper(p[0])).ToList();
+            return Ok(type.GetProperties().Select(p => p.Name).Where(p => char.IsUpper(p[0])).ToList());
             // return category switch
             // {
             //     "smartphones" => (ActionResult<List<string>>)GetPropertyNames<Smartphone>(),

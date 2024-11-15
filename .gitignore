@@ -5,7 +5,8 @@
 /ProductMService/obj/
 /NewsMService/bin/
 /NewsMService/obj/
-
+/GeoLocationMService/obj
+/GeoLocationMService/bin
 # Ignore user-specific files
 *.user
 *.rsuser
@@ -79,3 +80,5 @@ node_modules/
 *Migration*
 *.dylib
 *.so
+
+

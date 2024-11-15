@@ -15,10 +15,10 @@ builder.Services.AddScoped<ProductService>();
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAllOrigins",
+    options.AddPolicy("AllowLocalhost",
         builder =>
         {
-            builder.AllowAnyOrigin()
+            builder.WithOrigins("http://localhost", "http://localhost:3000", "http://localhost:8080")
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });
@@ -37,7 +37,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseCors("AllowAllOrigins");
+app.UseCors("AllowLocalhost");
 app.UseAuthorization();
 
 app.MapControllers();

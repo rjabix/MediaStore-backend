@@ -8,10 +8,10 @@ builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnC
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAllOrigins",
+    options.AddPolicy("AllowLocalhost",
         builder =>
         {
-            builder.AllowAnyOrigin()
+            builder.WithOrigins("http://localhost", "http://localhost:3000", "http://localhost:8080")
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });
@@ -33,7 +33,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseAuthorization();
-app.UseCors("AllowAllOrigins");
+app.UseCors("AllowLocalhost");
 app.MapControllers();
 
 app.Run();
