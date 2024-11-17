@@ -74,5 +74,12 @@ namespace ProductMService.Models
             Type? categoryType = Type.GetType($"ProductMService.Models.Categories.{category}", throwOnError: false);
             return categoryType;
         }
+
+        public static string ToFormattedCategoryString(this string category)
+        {
+            TextInfo textInfo = CultureInfo.CurrentCulture.TextInfo;
+            category = textInfo.ToTitleCase(category);
+            return category;
+        }
     }
 }

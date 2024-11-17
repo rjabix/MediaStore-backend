@@ -1,4 +1,5 @@
-﻿using ProductMService.Models;
+﻿using System.Reflection;
+using ProductMService.Models;
 using ProductMService.Models.Categories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -9,8 +10,6 @@ namespace ProductMService.Models
 {
     public class StoreDbContext : DbContext
     {
-        public DbSet<BigPromoItem> BigPromoItems { get; set; }
-        public DbSet<NewsCarouselItem> NewsCarouselItems { get; set; }
         public DbSet<Laptop> Laptops { get; set; }
         public DbSet<Smartphone> Smartphones { get; set; }
 
@@ -26,8 +25,6 @@ namespace ProductMService.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<BigPromoItem>().ToTable("BigPromoItems");
-            modelBuilder.Entity<NewsCarouselItem>().ToTable("NewsCarouselItems");
             modelBuilder.Entity<Smartphone>().ToTable("Smartphones");
             modelBuilder.Entity<Laptop>().ToTable("Laptops");
         }

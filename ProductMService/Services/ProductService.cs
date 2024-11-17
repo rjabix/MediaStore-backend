@@ -1,24 +1,14 @@
 ﻿using ProductMService.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ProductMService.Services
 {
-    public class ProductService
+    public class ProductService(StoreDbContext context)
     {
-        private readonly StoreDbContext _context;
-
-        public ProductService(StoreDbContext context)
-        {
-            _context = context;
-        }
-
         public async Task<List<Product>?> GetProductsByCategory(string category, int page = 0)
         {
-            var dbSet = GetDbSet(category);
-            var products = await dbSet.Skip(page * 20).ToListAsync();
+            var dbSet = GetDbSetQueryable(category);
+            var products = await dbSet.Skip(page * 20).Take(20).ToListAsync();
             foreach (var product in products)
             {
                 product.description = null;
@@ -28,7 +18,7 @@ namespace ProductMService.Services
 
         public async Task<object?> GetProductByCategoryAndIdAsync(string category, int id)
         {
-            var dbSet = GetDbSet(category);
+            var dbSet = GetDbSetQueryable(category);
             var product = await dbSet.FirstOrDefaultAsync(i => i.id == id);
             if (product != null) product.description = null;
             return product;
@@ -36,18 +26,21 @@ namespace ProductMService.Services
 
         public async Task<string?> GetProductDescriptionByCategoryAndIdAsync(string category, int id)
         {
-            var dbSet = GetDbSet(category);
+            var dbSet = GetDbSetQueryable(category);
             return await dbSet.Where(i => i.id == id).Select(i => i.description).FirstOrDefaultAsync();
         }
 
-        public async Task<List<object>?> GetPopularProductsAsync()
+        public async Task<List<object>?> GetPopularProductsAsync(int page)
         {
             var popularProducts = new List<object>();
             foreach (var category in Enum.GetNames(typeof(ProductCategory)))
             {
                 try
                 {
-                    var dbSet = GetDbSet(category).Where(p => p.specialTags != null && p.specialTags.Contains("Popular"));
+                    var dbSet = GetDbSetQueryable(category)
+                        .Where(p => p.specialTags != null && p.specialTags.Contains("Popular"))
+                        .Skip(page * 20)
+                        .Take(20);
                     popularProducts.AddRange(await dbSet.ToListAsync());
                 }
                 catch { }
@@ -57,17 +50,30 @@ namespace ProductMService.Services
 
         public async Task UpdateProductAsync(Product product)
         {
-            var dbSet = GetDbSet(product.category.ToCategoryString());
+            var dbSet = GetDbSetQueryable(product.category.ToCategoryString());
             var item = await dbSet.FirstOrDefaultAsync(i => i.id == product.id);
             if (item == null) throw new InvalidOperationException("Product is not found");
-            _context.Entry(item).CurrentValues.SetValues(product);
-            await _context.SaveChangesAsync();
+            context.Entry(item).CurrentValues.SetValues(product);
+            await context.SaveChangesAsync();
         }
-
-        private IQueryable<Product> GetDbSet(string category)
+        
+        public async Task DeleteProductAsync(Product product)
         {
-            var property = _context.GetType().GetProperty(category);
-            if (property?.GetValue(_context) is not IQueryable<Product> dbSet)
+            context.Remove(product);
+            await context.SaveChangesAsync();
+        }
+        
+        public async Task AddProductAsync(Product product)
+        {
+            context.Add(product);
+            await context.SaveChangesAsync();
+        }
+        
+
+        private IQueryable<Product> GetDbSetQueryable(string category)
+        {
+            var property = context.GetType().GetProperty(category);
+            if (property?.GetValue(context) is not IQueryable<Product> dbSet)
                 throw new InvalidOperationException("DbSet is not found");
             return dbSet;
         }

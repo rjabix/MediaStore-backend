@@ -20,10 +20,10 @@ namespace ProductMService.Controllers
         }
         
         [HttpGet("popular")]
-        public async Task<IActionResult> GetPopularProducts()
+        public async Task<ActionResult<List<Product>>?> GetPopularProducts([FromQuery] int page = 0)
         {
 
-            var products = await _productService.GetPopularProductsAsync();
+            var products = await _productService.GetPopularProductsAsync(page);
 
             if (products == null || products.Count == 0)
             {
@@ -34,13 +34,12 @@ namespace ProductMService.Controllers
         }
 
         [HttpGet("{category}")]
-        public async Task<IActionResult> GetProductsByCategory(string category, [FromQuery] int page = 0)
+        public async Task<ActionResult<Product?>> GetProductsByCategoryController(string category, [FromQuery] int page = 0)
         {
             // ---Capitalize the first letter of the category
-            TextInfo textInfo = CultureInfo.CurrentCulture.TextInfo;
-            category = textInfo.ToTitleCase(category);
+            category = category.ToFormattedCategoryString();
 
-            var products = await _productService.GetProductByCategory(category, page);
+            var products = await _productService.GetProductsByCategory(category, page);
 
 
             if (products == null || products.Count == 0)
@@ -54,9 +53,6 @@ namespace ProductMService.Controllers
                 return NotFound($"Category '{category}' is not supported.");
             }
 
-            // Check if all products are of the expected type
-            if (products.All(p => p.GetType() == productType)) return Ok(products);
-            // Create a non-generic list to hold the casted products
             var typedProductsList = (System.Collections.IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(productType));
             foreach (var product in products)
             {
@@ -71,8 +67,7 @@ namespace ProductMService.Controllers
         public async Task<IActionResult> GetProduct(string category, int id)
         {
             // ---Capitalize the first letter of the category
-            TextInfo textInfo = CultureInfo.CurrentCulture.TextInfo;
-            category = textInfo.ToTitleCase(category);
+            category = category.ToFormattedCategoryString();
 
             var product = await _productService.GetProductByCategoryAndIdAsync(category, id);
 
@@ -88,11 +83,10 @@ namespace ProductMService.Controllers
         public async Task<IActionResult> GetProductDescription(string category, int id)
         {
             // ---Capitalize the first letter of the category
-            TextInfo textInfo = CultureInfo.CurrentCulture.TextInfo;
-            category = textInfo.ToTitleCase(category);
+            category = category.ToFormattedCategoryString();
             try
             {
-                var description = await _productService.GetProduct_Description_ByCategoryAndIdAsync(category, id); // Get the description property
+                var description = await _productService.GetProductDescriptionByCategoryAndIdAsync(category, id); // Get the description property
                 return Ok(description);
             }
             catch (Exception ex)
@@ -107,7 +101,7 @@ namespace ProductMService.Controllers
             var type = category.GetCategoryType();
             if (type == null) 
                 return NotFound();
-            return Ok(type.GetProperties().Select(p => p.Name).Where(p => char.IsUpper(p[0])).ToList());
+            return Ok(type.GetProperties().Select(p => p.Name).Where(p => Char.IsUpper(p[0])).ToList());
             // return category switch
             // {
             //     "smartphones" => (ActionResult<List<string>>)GetPropertyNames<Smartphone>(),
