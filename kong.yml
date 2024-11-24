@@ -27,4 +27,10 @@ services:
       - name: GeoLocationMService
         paths:
           - /geolocation
+  - name: UserMService
+    url: http://host.docker.internal:8090/identity
+    routes:
+      - name: UserMService
+        paths:
+          - /identity
 

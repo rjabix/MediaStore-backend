@@ -7,7 +7,6 @@
 /NewsMService/obj/
 /GeoLocationMService/obj/
 /GeoLocationMService/bin/
-
 # Ignore user-specific files
 *.user
 *.rsuser

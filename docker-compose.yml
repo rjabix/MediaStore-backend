@@ -28,6 +28,13 @@ services:
     container_name: GeoLocationMService
     ports:
       - "8084:8080"  # Налаштуйте потрібний порт для service3
+  
+  usermservice:
+    build:
+      context: ./UserMService
+    container_name: UserMService
+    ports:
+      - "8090:8080"  # Налаштуйте потрібний порт для service3
 
   kong: # kong docker config
     image: kong:latest

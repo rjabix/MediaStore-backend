@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BigPromoMService", "BigProm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsMService", "NewsMService\NewsMService.csproj", "{2F03672D-50B6-446F-BF27-CEA42CD161D6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserMService", "UserMService\UserMService.csproj", "{5824A599-C11C-4648-B4E9-2ADC5B9F1496}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{2F03672D-50B6-446F-BF27-CEA42CD161D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F03672D-50B6-446F-BF27-CEA42CD161D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F03672D-50B6-446F-BF27-CEA42CD161D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5824A599-C11C-4648-B4E9-2ADC5B9F1496}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5824A599-C11C-4648-B4E9-2ADC5B9F1496}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5824A599-C11C-4648-B4E9-2ADC5B9F1496}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5824A599-C11C-4648-B4E9-2ADC5B9F1496}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

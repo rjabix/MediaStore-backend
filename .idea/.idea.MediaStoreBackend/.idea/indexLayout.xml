@@ -2,7 +2,10 @@
 <project version="4">
   <component name="UserContentModel">
     <attachedFolders />
-    <explicitIncludes />
+    <explicitIncludes>
+      <Path>docker-compose.yml</Path>
+      <Path>kong.yml</Path>
+    </explicitIncludes>
     <explicitExcludes />
   </component>
 </project>
