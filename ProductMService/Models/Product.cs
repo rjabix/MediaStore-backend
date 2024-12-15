@@ -1,7 +1,12 @@
-﻿namespace ProductMService.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ProductMService.Models
 {
     public abstract class Product //info for card preview
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
         public string title { get; set; }
         public float price { get; set; }

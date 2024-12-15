@@ -4,8 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace UserMService.Contexts;
 
-public class UserIdentityContext(DbContextOptions<UserIdentityContext> options)
-    : IdentityDbContext<IdentityUser>(options)
+public class UserIdentityContext(DbContextOptions<UserIdentityContext> options) : 
+    IdentityDbContext<StoreUser>(options)
 {
     
 }
