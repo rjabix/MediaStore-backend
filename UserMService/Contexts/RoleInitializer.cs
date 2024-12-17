@@ -9,7 +9,7 @@ public class RoleInitializer
     /// </summary>
     public static async Task InitializeAsync(RoleManager<IdentityRole> roleManager)
     {
-        string[] roleNames = ["Admin", "User", "Manager"];
+        string[] roleNames = ["Admin", "User", "Manager"]; // available roles
         foreach (var roleName in roleNames)
         {
             if (!await roleManager.RoleExistsAsync(roleName))
