@@ -10,7 +10,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsMService", "NewsMServic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserMService", "UserMService\UserMService.csproj", "{5824A599-C11C-4648-B4E9-2ADC5B9F1496}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderMController", "OrderMController\OrderMController.csproj", "{FE7382F6-D972-4CFB-A798-B255FC06738C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderMService", "OrderMService\OrderMService.csproj", "{FE7382F6-D972-4CFB-A798-B255FC06738C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

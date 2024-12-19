@@ -7,7 +7,7 @@ using UserMService.Contexts;
 namespace UserMService.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("identity/[controller]")]
 public class UserController(ILogger<UserController> logger, UserManager<StoreUser> userManager) : ControllerBase
 {
     private readonly ILogger<UserController> _logger = logger;

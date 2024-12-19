@@ -33,4 +33,11 @@ services:
       - name: UserMService
         paths:
           - /identity
+        
+  - name: OrderMService
+    url: http://host.docker.internal:8092/order
+    routes:
+      - name: OrderMService
+        paths:
+          - /order
 

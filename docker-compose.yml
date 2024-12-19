@@ -6,35 +6,53 @@ services:
       context: ./ProductMService
     container_name: ProductMService
     ports:
-      - "8088:8080"  # Налаштуйте потрібний порт для service1
+      - "8088:8080"
 
   newsmservice:
     build:
       context: ./NewsMService
     container_name: NewsMService
     ports:
-      - "8086:8080"  # Налаштуйте потрібний порт для service2
+      - "8086:8080" 
 
   bigpromomservice:
     build:
       context: ./BigPromoMService
     container_name: BigPromoMService
     ports:
-      - "8082:8080"  # Налаштуйте потрібний порт для service3
+      - "8082:8080"
 
   geolocationmservice:
     build:
       context: ./GeoLocationMService
     container_name: GeoLocationMService
     ports:
-      - "8084:8080"  # Налаштуйте потрібний порт для service3
+      - "8084:8080"
   
   usermservice:
     build:
       context: ./UserMService
     container_name: UserMService
     ports:
-      - "8090:8080"  # Налаштуйте потрібний порт для service3
+      - "8090:8080"  
+  
+  ordermservice:
+    build:
+      context: ./OrderMService
+    container_name: OrderMService
+    ports:
+      - "8092:8080"
+  
+  store.mq:
+    image: rabbitmq:3-management
+    container_name: store.mq
+    hostname: store.mq
+    ports:
+      - "15672:15672" # this is port for management
+      - "5672:5672" # this is default port for messages
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: password
 
   kong: # kong docker config
     image: kong:latest
