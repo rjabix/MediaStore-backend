@@ -15,10 +15,10 @@ public class CreateOrderInStoreCommand(Guid orderId, Guid cartId)
     public Guid CartId { get; set; } = cartId;
 }
 
-public class CreateDeliveryCommand(Guid orderId, Address destinationAddress)
+public class CreateDeliveryCommand(Guid orderId, string destinationAddressId)
 {
     public Guid OrderId { get; set; } = orderId;
-    public Address DestinationAddress { get; set; } = destinationAddress;
+    public string DestinationAddressId { get; set; } = destinationAddressId;
 }
 
 public class PaymentVerifyCommand(Guid orderId, Guid userId) // Currently only checking whether the credit card number is valid

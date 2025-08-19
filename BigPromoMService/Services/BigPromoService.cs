@@ -7,10 +7,7 @@ namespace BigPromoMService.Services
 {
     public class BigPromoService
     {
-        static IQueryable<BigPromoItem> Promos { get; } //implement database 
         private readonly StoreDbContext _context;
-
-        static int nextId = 2;
         public BigPromoService(StoreDbContext context)
         {
             _context = context;
@@ -40,14 +37,8 @@ namespace BigPromoMService.Services
 
         public async Task DeleteBigPromoItemAsync(int id)
         {
-            var item = await _context.BigPromoItems.FindAsync(id);
-            if (item != null)
-            {
-                _context.BigPromoItems.Remove(item);
-                await _context.SaveChangesAsync();
-            }
+            await _context.BigPromoItems.Where(item => item.id == id).ExecuteDeleteAsync();
         }
-
     }
 }
 

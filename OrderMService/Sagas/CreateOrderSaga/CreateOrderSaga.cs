@@ -39,12 +39,12 @@ public class CreateOrderSaga : Saga<CreateOrderSagaData>,
     
     protected override void CorrelateMessages(ICorrelationConfig<CreateOrderSagaData> config)
     {
-        config.Correlate<OrderCreatedEvent>(m => m.OrderId, s => s.Id);
-        config.Correlate<OrderCreateUserVerifiedEvent>(m => m.OrderId, s => s.Id);
-        config.Correlate<OrderCreatedPaymentVerified>(m => m.OrderId, s => s.Id);
-        config.Correlate<StoreOrderCreatedEvent>(m => m.OrderId, s => s.Id);
-        config.Correlate<OrderDeliveryCreatedEvent>(m => m.OrderId, s => s.Id);
-        config.Correlate<OrderDeliveredEvent>(m => m.OrderId, s => s.Id);
+        config.Correlate<OrderCreatedEvent>(m => m.OrderId, s => s.OrderId);
+        config.Correlate<OrderCreateUserVerifiedEvent>(m => m.OrderId, s => s.OrderId);
+        config.Correlate<OrderCreatedPaymentVerified>(m => m.OrderId, s => s.OrderId);
+        config.Correlate<StoreOrderCreatedEvent>(m => m.OrderId, s => s.OrderId);
+        config.Correlate<OrderDeliveryCreatedEvent>(m => m.OrderId, s => s.OrderId);
+        config.Correlate<OrderDeliveredEvent>(m => m.OrderId, s => s.OrderId);
     }
 
 
@@ -64,6 +64,13 @@ public class CreateOrderSaga : Saga<CreateOrderSagaData>,
     public async Task Handle(OrderCreateUserVerifiedEvent message)
     {
         if (Data.Status != "Created") return;
+
+        if (!message.IsVerified)
+        {
+            MarkAsComplete();
+            // some error handling
+        }
+        
         Data.Status = "UserVerified";
         // Step 3. Send a command to StoreService to create the order in the store
         await _bus.Send(new PaymentVerifyCommand(Data.OrderId, message.UserId));
@@ -86,13 +93,11 @@ public class CreateOrderSaga : Saga<CreateOrderSagaData>,
         if(Data.Status != "PaymentVerified") return;
 
         Data.Status = "Processing";
-        await _context.Orders.Where(o => o.Id == Data.OrderId)
-            .ExecuteUpdateAsync(o => 
-                o.SetProperty(p => p.Status, OrderStatus.Processing));
+        await SetStatusToOrder(Data.OrderId, OrderStatus.Processing);
         
         // Step 5. Creating the delivery to specified address
         
-        await _bus.Send(new CreateDeliveryCommand(Data.OrderId, message.ShippingAddress));
+        await _bus.Send(new CreateDeliveryCommand(Data.OrderId, message.ShippingAddress.Id.ToString()));
     }
 
     public async Task Handle(OrderDeliveryCreatedEvent message)
@@ -100,9 +105,7 @@ public class CreateOrderSaga : Saga<CreateOrderSagaData>,
         if (Data.Status != "Processing") return;
 
         Data.Status = "Shipping";
-        await _context.Orders.Where(o => o.Id == Data.OrderId)
-            .ExecuteUpdateAsync(o => 
-                o.SetProperty(p => p.Status, OrderStatus.Shipping));
+        await SetStatusToOrder(Data.OrderId, OrderStatus.Shipping);
         
         // Step 6. When the delivery is created, the order is marked as "Delivering" and no messages are needed to send
         
@@ -110,12 +113,18 @@ public class CreateOrderSaga : Saga<CreateOrderSagaData>,
 
     public async Task Handle(OrderDeliveredEvent message)
     {
-        await _context.Orders.Where(o => o.Id == Data.OrderId)
-            .ExecuteUpdateAsync(o => 
-                o.SetProperty(p => p.Status, OrderStatus.Delivered));
+        if(Data.Status != "Shipping") return;
         
+        await SetStatusToOrder(Data.OrderId, OrderStatus.Delivered);
         // When is delivered, update the order status as delivered and end the saga.
         MarkAsComplete();
     }
     // Possible to add next functions, as e.g. the update on product etc.
+
+    private async Task SetStatusToOrder(Guid orderId, OrderStatus status)
+    {
+        await _context.Orders.Where(o => o.Id == orderId)
+            .ExecuteUpdateAsync(o => 
+                o.SetProperty(p => p.Status, status));
+    }
 }

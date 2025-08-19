@@ -8,12 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.8" />
     </ItemGroup>
 
@@ -24,8 +19,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Reference Include="Rebus">
-        <HintPath>..\..\..\.nuget\packages\rebus\8.4.2\lib\net6.0\Rebus.dll</HintPath>
+      <Reference Include="Microsoft.EntityFrameworkCore">
+        <HintPath>..\..\..\.nuget\packages\microsoft.entityframeworkcore\9.0.0-rc.2.24474.1\lib\net8.0\Microsoft.EntityFrameworkCore.dll</HintPath>
+      </Reference>
+      <Reference Include="Microsoft.EntityFrameworkCore.Abstractions">
+        <HintPath>..\..\..\.nuget\packages\microsoft.entityframeworkcore.abstractions\9.0.0-rc.2.24474.1\lib\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll</HintPath>
       </Reference>
     </ItemGroup>
 

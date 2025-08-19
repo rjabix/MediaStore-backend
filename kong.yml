@@ -21,12 +21,14 @@ services:
       - name: BigPromoMService
         paths:
           - /promos
+        
   - name: GeoLocationMService
     url: http://host.docker.internal:8084/geolocation
     routes:
       - name: GeoLocationMService
         paths:
           - /geolocation
+        
   - name: UserMService
     url: http://host.docker.internal:8090/identity
     routes:
@@ -40,4 +42,11 @@ services:
       - name: OrderMService
         paths:
           - /order
+          
+  - name: StoreMService
+    url: http://host.docker.internal:8094/store
+    routes:
+      - name: StoreMService
+        paths:
+          - /store
 

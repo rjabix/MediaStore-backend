@@ -6,7 +6,7 @@ namespace OrderMController.Sagas.CreateOrderSaga;
 
 public record OrderCreatedEvent(Guid OrderId, Guid UserId, List<int> ProductIds, List<int> ProductQuantities, Address ShippingAddress);
 
-public record OrderCreateUserVerifiedEvent(Guid OrderId, Guid UserId, List<int> ProductIds, List<int> ProductQuantities, bool IsVerified);
+public record OrderCreateUserVerifiedEvent(Guid OrderId, Guid UserId, bool IsVerified);
 
 public record OrderCreatedPaymentVerified(Guid OrderId, Guid UserId);
 

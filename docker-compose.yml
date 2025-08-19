@@ -42,6 +42,13 @@ services:
     container_name: OrderMService
     ports:
       - "8092:8080"
+        
+  storemservice:
+    build:
+      context: ./StoreMService
+    container_name: StoreMService
+    ports:
+      - "8094:8080"
   
   store.mq:
     image: rabbitmq:3-management

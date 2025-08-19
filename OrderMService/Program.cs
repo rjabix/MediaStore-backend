@@ -23,9 +23,7 @@ builder.Services.AddRebus(rebus =>
         .Sagas(s =>
             s.StoreInPostgres(builder.Configuration.GetConnectionString("SagasDb"), "Sagas", "Sagas_indexes"))
         .Timeouts(t =>
-           // t.StoreInPostgres(builder.Configuration.GetConnectionString("SagasDb"), "Timeouts"))
-           t.StoreInMemory())
-);
+           t.StoreInPostgres(builder.Configuration.GetConnectionString("SagasDb"), "Timeouts")));
 
 builder.Services.AutoRegisterHandlersFromAssemblyOf<Program>();
 
