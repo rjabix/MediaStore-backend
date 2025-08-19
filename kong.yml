@@ -50,3 +50,10 @@ services:
         paths:
           - /store
 
+  - name: PaymentMService
+    url: http://host.docker.internal:8096/payment
+    routes:
+      - name: PaymentMService
+        paths:
+          - /payment
+

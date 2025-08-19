@@ -49,6 +49,13 @@ services:
     container_name: StoreMService
     ports:
       - "8094:8080"
+        
+  paymentmservice:
+    build:
+      context: ./PaymentMService
+    container_name: PaymentMService
+    ports:
+      - "8096:8080"
   
   store.mq:
     image: rabbitmq:3-management

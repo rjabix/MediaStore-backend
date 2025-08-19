@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderMService", "OrderMServ
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreMService", "StoreMService\StoreMService.csproj", "{F1BFC53A-BFBC-4EFC-B7B9-C6F906F21051}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentMService", "PaymentMService\PaymentMService.csproj", "{04FB283D-F123-43D3-B18C-5BC01AC21984}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,5 +50,9 @@ Global
 		{F1BFC53A-BFBC-4EFC-B7B9-C6F906F21051}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1BFC53A-BFBC-4EFC-B7B9-C6F906F21051}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1BFC53A-BFBC-4EFC-B7B9-C6F906F21051}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04FB283D-F123-43D3-B18C-5BC01AC21984}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04FB283D-F123-43D3-B18C-5BC01AC21984}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04FB283D-F123-43D3-B18C-5BC01AC21984}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04FB283D-F123-43D3-B18C-5BC01AC21984}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

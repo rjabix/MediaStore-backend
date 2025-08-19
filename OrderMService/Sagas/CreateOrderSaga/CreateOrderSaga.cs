@@ -72,7 +72,7 @@ public class CreateOrderSaga : Saga<CreateOrderSagaData>,
         }
         
         Data.Status = "UserVerified";
-        // Step 3. Send a command to StoreService to create the order in the store
+        // Step 3. Send a command to Payment service to validate the payment information
         await _bus.Send(new PaymentVerifyCommand(Data.OrderId, message.UserId));
     }
 
